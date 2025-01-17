@@ -9,6 +9,8 @@ import itsc2214.ArrayInt;
  * @version Jan 16, 2025
  */
 
+ // todo - add javadoc for params for methods
+
 public class Project1 implements ArrayInt {
 
     private int[] arr;
