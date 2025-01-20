@@ -9,7 +9,7 @@ import itsc2214.ArrayInt;
  * @version Jan 16, 2025
  */
 
- // todo - add javadoc for params for methods
+// todo - add javadoc for params for methods
 
 public class Project1 implements ArrayInt {
 
@@ -17,6 +17,11 @@ public class Project1 implements ArrayInt {
     private int capacity;
     private int size;
 
+    /**
+     * Class constructor.
+     * 
+     * @param capacity The maximum capacity of elements in the created instance.
+     */
     public Project1(int capacity) {
         this.arr = new int[capacity];
         this.capacity = capacity;
@@ -35,6 +40,12 @@ public class Project1 implements ArrayInt {
         return this.size;
     }
 
+    /**
+     * Finds the smallest item in the internal array.
+     * If the array is empty, this returns Integer.MIN_VALUE.
+     * 
+     * @return The smallest number in the internal array.
+     */
     public int getMinimum() {
         if (this.isEmpty()) {
             return Integer.MIN_VALUE;
@@ -49,6 +60,12 @@ public class Project1 implements ArrayInt {
         return result;
     }
 
+    /**
+     * Finds the largest item in the internal array.
+     * If the array is empty, this returns Integer.MAX_VALUE.
+     * 
+     * @return The largest number in the internal array.
+     */
     public int getMaximum() {
         if (this.isEmpty()) {
             return Integer.MAX_VALUE;
@@ -63,8 +80,15 @@ public class Project1 implements ArrayInt {
         return result;
     }
 
+    /**
+     * Computes the average of all values in the internal array. The last division
+     * operation is how the average is found.
+     * 
+     * @return The average of all values in the internal array.
+     * @throws IllegalStateException The array was empty.
+     */
     public int getAverage() throws IllegalStateException {
-        if (arr.length == 0) {
+        if (this.isEmpty()) {
             throw new IllegalStateException();
         }
 
@@ -75,14 +99,29 @@ public class Project1 implements ArrayInt {
         return result /= size();
     }
 
+    /**
+     * Computes the arithmetic difference between the largest and smallest value in
+     * the internal array.
+     * 
+     * @return The arithmetic difference between the smallest and largest value in
+     *         the internal array.
+     */
     public int getRange() {
         return this.getMaximum() - this.getMinimum();
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getMode() { // todo
         return Integer.MAX_VALUE;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getMedian() {
         int[] arrSorted = Arrays.copyOf(arr, arr.length);
         if (arrSorted.length % 2 == 0) {
@@ -93,7 +132,9 @@ public class Project1 implements ArrayInt {
         return -1; // temp
     }
 
-    // returns the number of elements stored in the array.
+    /**
+     * 
+     */
     @Override
     public int size() {
         return this.getSize();
@@ -105,6 +146,9 @@ public class Project1 implements ArrayInt {
         return this.getCapacity();
     }
 
+    /**
+     * 
+     */
     @Override
     public void addValue(int value) throws IllegalStateException {
         this.size++;
@@ -113,6 +157,9 @@ public class Project1 implements ArrayInt {
         throw new UnsupportedOperationException("Unimplemented method 'addValue'");
     }
 
+    /**
+     * 
+     */
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
         if (index >= arr.length) {
@@ -121,6 +168,9 @@ public class Project1 implements ArrayInt {
         return arr[index];
     }
 
+    /**
+     * 
+     */
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
         if (index >= arr.length) {
@@ -132,12 +182,18 @@ public class Project1 implements ArrayInt {
         return result;
     }
 
+    /**
+     * 
+     */
     @Override
     public void addRandom(int n) throws IllegalStateException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addRandom'");
     }
 
+    /**
+     * 
+     */
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
@@ -146,11 +202,17 @@ public class Project1 implements ArrayInt {
 
     /* public boolean isEmpty() -> already defined in SizedCollection */
 
+    /**
+     * 
+     */
     @Override
     public boolean isFull() {
         return size() == capacity();
     }
 
+    /**
+     * 
+     */
     @Override
     public boolean hasDuplicates() {
         // TODO Auto-generated method stub
