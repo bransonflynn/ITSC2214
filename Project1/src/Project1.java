@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 
 import itsc2214.ArrayInt;
 
@@ -213,7 +214,7 @@ public class Project1 implements ArrayInt {
     /* public boolean isEmpty() -> already defined in SizedCollection */
 
     /**
-     * @return Representative of if the internal array is considered full.
+     * @return If the internal array is considered full.
      */
     @Override
     public boolean isFull() {
@@ -221,11 +222,18 @@ public class Project1 implements ArrayInt {
     }
 
     /**
+     * Checks if the array has any duplicate values.
      * 
+     * @return If the internal array has duplicate values.
      */
     @Override
     public boolean hasDuplicates() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hasDuplicates'");
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            // if contains key arr[i], add to key's value
+            // else, put new key with value of 1 in map
+            //////map.put(arr[i]);
+        }
+        return false; // todo
     }
 }
