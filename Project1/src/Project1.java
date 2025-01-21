@@ -14,7 +14,7 @@ import itsc2214.ArrayInt;
 public class Project1 implements ArrayInt {
 
     private int[] arr;
-    private int capacity;
+    final private int capacity;
     private int size;
 
     /**
@@ -28,16 +28,16 @@ public class Project1 implements ArrayInt {
         this.size = 0;
     }
 
-    public int[] getArray() {
-        return this.arr;
+    public int[] getArr() {
+        return arr;
     }
 
     public int getCapacity() {
-        return this.capacity;
+        return capacity;
     }
 
     public int getSize() {
-        return this.size;
+        return size;
     }
 
     /**
@@ -111,8 +111,9 @@ public class Project1 implements ArrayInt {
     }
 
     /**
+     * Computes the most frequent value in the internal array.
      * 
-     * @return
+     * @return The most frequent value found in the array.
      */
     public int getMode() { // todo
         return Integer.MAX_VALUE;
@@ -158,11 +159,15 @@ public class Project1 implements ArrayInt {
     }
 
     /**
+     * Returns the value at the provided index of the internal array.
      * 
+     * @param index The position to return the value from.
+     * @return The value at the provided index.
+     * @throws IndexOutOfBoundsException The provided position was not valid.
      */
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
-        if (index >= arr.length) {
+        if (index >= arr.length || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         return arr[index];
@@ -173,7 +178,7 @@ public class Project1 implements ArrayInt {
      */
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
-        if (index >= arr.length) {
+        if (index >= arr.length || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -192,18 +197,23 @@ public class Project1 implements ArrayInt {
     }
 
     /**
+     * asd
      * 
+     * @param index The position to return the value from.
+     * @throws IndexOutOfBoundsException
      */
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeValueAt'");
+        if (index >= arr.length || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        // todo
     }
 
     /* public boolean isEmpty() -> already defined in SizedCollection */
 
     /**
-     * 
+     * @return Representative of if the internal array is considered full.
      */
     @Override
     public boolean isFull() {
