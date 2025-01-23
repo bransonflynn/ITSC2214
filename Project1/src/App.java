@@ -1,16 +1,13 @@
 /**
- * TODO Write a one-sentence summary of your here.
- * TODO Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Entry point for running Project1.
  * 
  * @author Branson Flynn
  * @version Jan 23, 2025
  */
 public class App {
-    // note todo - create instance of project1 and test methods here
     public static void main(String[] args) {
         Project1 numCollection = new Project1(100);
-        numCollection.addRandom(51);
+        numCollection.addRandom(50);
 
         System.out.println(numCollection.arrToString(true)); // temp
 

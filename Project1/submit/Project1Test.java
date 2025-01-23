@@ -1,5 +1,3 @@
-//import itsc2214.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -8,11 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
 /**
- * TODO Write a one-sentence summary of your here.
- * TODO Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Project1 testcases for debugging.
  * 
  * @author Branson Flynn
  * @version Jan 16, 2025
