@@ -4,18 +4,16 @@ import java.util.HashMap;
 import itsc2214.ArrayInt;
 
 /**
- * int[] wrapper class for ITSC2214 Project1
+ * This is an int[] wrapper class for ITSC2214 Project1
  * 
  * @author Branson Flynn
  * @version Jan 16, 2025
  */
 
-// todo - add javadoc for params for methods
-
 public class Project1 implements ArrayInt {
 
     private int[] arr;
-    final private int capacity;
+    private final int capacity;
     private int size;
 
     /**
@@ -88,16 +86,16 @@ public class Project1 implements ArrayInt {
      * @return The average of all values in the internal array.
      * @throws IllegalStateException The array was empty.
      */
-    public int getAverage() throws IllegalStateException {
+    public double getAverage() throws IllegalStateException {
         if (this.isEmpty()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("The array was empty.");
         }
 
-        int result = 0;
+        double result = 0;
         for (int i = 0; i < arr.length; i++) {
             result += arr[i];
         }
-        return result /= size();
+        return result /= (double) size();
     }
 
     /**
@@ -112,51 +110,57 @@ public class Project1 implements ArrayInt {
     }
 
     /**
-     * Computes the most frequent value in the internal array.
+     * Finds and computes the middle number within a sorted version of the internal
+     * array.
      * 
-     * @return The most frequent value found in the array.
+     * @return The number that was found (or averaged from) the middle values within
+     *         the array.
      */
-    public int getMode() { // todo
-        return Integer.MAX_VALUE;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public int getMedian() {
-        int[] arrSorted = Arrays.copyOf(arr, arr.length);
-        if (arrSorted.length % 2 == 0) {
-            // todo
+    public double getMedian() {
+        int len = arr.length;
+        int[] arrSorted = Arrays.copyOf(arr, len);
+        Arrays.sort(arrSorted);
+        if (len % 2 != 0) {
+            return arrSorted[len / 2];
         } else {
-            return arrSorted[arrSorted.length / 2 + 1]; // todo - needs to be tested
+            return (arrSorted[(len - 1) / 2] + arrSorted[len / 2]) / 2.0;
         }
-        return -1; // temp
     }
 
     /**
+     * Returns the size of (number of elements within) the internal array.
      * 
+     * @return The number of elements stored in the internal array.
      */
     @Override
     public int size() {
         return this.getSize();
     }
 
-    // returns the size of the array, that is how big the array is, not how many
-    // elements are stored in it.
+    /**
+     * Returns the capacity of the internal array. This is how big the array is, not
+     * how many elements are stored in it.
+     * 
+     * @return The size of the array, that is how big the array is, not how many
+     *         elements are stored in it.
+     */
     public int capacity() {
         return this.getCapacity();
     }
 
     /**
+     * Appends a value to the internal array. Does not grow the internal array.
      * 
+     * @param value The new value to append to the internal array.
+     * @throws IllegalStateException The array was full.
      */
     @Override
     public void addValue(int value) throws IllegalStateException {
-        this.size++;
+        if (this.isFull()) {
+            throw new IllegalStateException("The array was full.");
+        }
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addValue'");
+        this.size++; // todo
     }
 
     /**
@@ -164,23 +168,30 @@ public class Project1 implements ArrayInt {
      * 
      * @param index The position to return the value from.
      * @return The value at the provided index.
-     * @throws IndexOutOfBoundsException The provided position was not valid.
+     * @throws IndexOutOfBoundsException The provided position at index was not
+     *                                   valid.
      */
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
         if (index >= arr.length || index < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
         return arr[index];
     }
 
     /**
+     * Sets the value at the position index of the array.
      * 
+     * @param index The index to place value at.
+     * @param value The new value to assign to index.
+     * @return The value that was previusly at index.
+     * @throws IndexOutOfBoundsException The provided position at index was not
+     *                                   valid.
      */
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
         if (index >= arr.length || index < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
 
         int result = arr[index];
@@ -189,52 +200,67 @@ public class Project1 implements ArrayInt {
     }
 
     /**
+     * Adds a random set of n numbers to the end of the internal array.
      * 
+     * @param n The amount of random numbers to add.
+     * @throws IllegalStateException The array was full.
      */
     @Override
     public void addRandom(int n) throws IllegalStateException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addRandom'");
+        if (this.isFull()) {
+            throw new IllegalStateException("The array was full.");
+        }
     }
 
     /**
-     * asd
+     * Deletes the value at the provided index.
      * 
      * @param index The position to return the value from.
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException The provided position at index was not
+     *                                   valid.
      */
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
         if (index >= arr.length || index < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
         // todo
     }
 
-    /* public boolean isEmpty() -> already defined in SizedCollection */
-
     /**
-     * @return If the internal array is considered full.
+     * Checks if the array is considered empty.
+     * 
+     * @return True if the array is empty.
      */
     @Override
-    public boolean isFull() {
-        return size() == capacity();
+    public boolean isEmpty() {
+        return this.size() == 0;
     }
 
     /**
-     * Checks if the array has any duplicate values.
+     * Returns true if the array is full. The array is considered full if size and
+     * capacity are equal.
      * 
-     * @return If the internal array has duplicate values.
+     * @return True if the internal array is considered full.
+     */
+    @Override
+    public boolean isFull() {
+        return this.size() == this.capacity();
+    }
+
+    /**
+     * Checks if the array has any duplicate values by iterating through a HashMap.
+     * 
+     * @return True if the internal array has duplicate values.
      */
     @Override
     public boolean hasDuplicates() {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < arr.length; i++) {
-            if (map.containsKey(arr[i])) {
+            if (map.containsKey(arr[i]))
                 return true;
-            } else {
+            else
                 map.put(arr[i], 1);
-            }
         }
         return false;
     }
