@@ -91,7 +91,7 @@ public class Project1 implements ArrayInt {
             throw new IllegalStateException("The array was empty.");
         }
 
-        double result = 0;
+        double result = 0.0;
         for (int i = 0; i < arr.length; i++) {
             result += arr[i];
         }
@@ -114,12 +114,14 @@ public class Project1 implements ArrayInt {
      * array.
      * 
      * @return The number that was found (or averaged from) the middle values within
-     *         the array.
+     *         a sorted copy of the internal array.
      */
     public double getMedian() {
         int len = arr.length;
+        // we make a copy of the array so we don't disturb the existing array's elements
         int[] arrSorted = Arrays.copyOf(arr, len);
         Arrays.sort(arrSorted);
+
         if (len % 2 != 0) {
             return arrSorted[len / 2];
         } else {
@@ -160,7 +162,8 @@ public class Project1 implements ArrayInt {
             throw new IllegalStateException("The array was full.");
         }
 
-        this.size++; // todo
+        arr[this.size() + 1] = value; // todo needs testing
+        size++;
     }
 
     /**
@@ -210,6 +213,18 @@ public class Project1 implements ArrayInt {
         if (this.isFull()) {
             throw new IllegalStateException("The array was full.");
         }
+
+        // config options for random num generation
+        int max = 1000;
+        int min = -1000;
+        int range = max - min + 1;
+
+        for (int i = 0; i < n; i++) {
+            if (!this.isFull()) {
+                int rand = (int) (Math.random() * range) + min;
+                this.addValue(rand);
+            }
+        }
     }
 
     /**
@@ -224,11 +239,18 @@ public class Project1 implements ArrayInt {
         if (index >= arr.length || index < 0) {
             throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
-        // todo
+
+        // todo - needs testing
+        for (int i = index; i < this.capacity() - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
     }
 
     /**
      * Checks if the array is considered empty.
+     * The method body is the same as the original overridden function, it's just
+     * here for clarity.
      * 
      * @return True if the array is empty.
      */
@@ -249,13 +271,17 @@ public class Project1 implements ArrayInt {
     }
 
     /**
-     * Checks if the array has any duplicate values by iterating through a HashMap.
+     * Checks if the array has any duplicate values by populating and iterating
+     * through a HashMap
+     * and checking keys within the map.
      * 
      * @return True if the internal array has duplicate values.
+     *         False if the array has no duplicate values.
      */
     @Override
     public boolean hasDuplicates() {
         HashMap<Integer, Integer> map = new HashMap<>();
+
         for (int i = 0; i < arr.length; i++) {
             if (map.containsKey(arr[i]))
                 return true;

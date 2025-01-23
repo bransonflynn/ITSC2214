@@ -17,6 +17,7 @@ public class App {
         System.out.println("Largest = " + numCollection.getMaximum());
         System.out.println("Range = " + numCollection.getRange());
         System.out.println("Average = " + numCollection.getAverage());
+        System.out.println("Has duplicates = " + numCollection.hasDuplicates());
 
         int lastIndex = numCollection.getCapacity();
         try {
