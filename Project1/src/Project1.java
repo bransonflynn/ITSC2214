@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import itsc2214.ArrayInt;
 
@@ -51,7 +52,7 @@ public class Project1 implements ArrayInt {
         }
 
         int result = Integer.MAX_VALUE;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < this.size(); i++) {
             if (arr[i] < result) {
                 result = arr[i];
             }
@@ -71,7 +72,7 @@ public class Project1 implements ArrayInt {
         }
 
         int result = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < this.size(); i++) {
             if (arr[i] > result) {
                 result = arr[i];
             }
@@ -92,7 +93,7 @@ public class Project1 implements ArrayInt {
         }
 
         double result = 0.0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < this.size(); i++) {
             result += arr[i];
         }
         return result /= (double) size();
@@ -117,15 +118,15 @@ public class Project1 implements ArrayInt {
      *         a sorted copy of the internal array.
      */
     public double getMedian() {
-        int len = arr.length;
         // we make a copy of the array so we don't disturb the existing array's elements
-        int[] arrSorted = Arrays.copyOf(arr, len);
+        int[] arrSorted = Arrays.copyOf(arr, size);
         Arrays.sort(arrSorted);
 
+        int len = arrSorted.length;
         if (len % 2 != 0) {
-            return arrSorted[len / 2];
+            return (double) arrSorted[len / 2];
         } else {
-            return (arrSorted[(len - 1) / 2] + arrSorted[len / 2]) / 2.0;
+            return (double) (arrSorted[(len - 1) / 2] + arrSorted[len / 2]) / 2.0;
         }
     }
 
@@ -162,7 +163,7 @@ public class Project1 implements ArrayInt {
             throw new IllegalStateException("The array was full.");
         }
 
-        arr[this.size() + 1] = value; // todo needs testing
+        arr[this.size()] = value; // todo needs testing
         size++;
     }
 
@@ -176,7 +177,7 @@ public class Project1 implements ArrayInt {
      */
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
-        if (index >= arr.length || index < 0) {
+        if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
         return arr[index];
@@ -193,7 +194,7 @@ public class Project1 implements ArrayInt {
      */
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
-        if (index >= arr.length || index < 0) {
+        if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
 
@@ -215,14 +216,14 @@ public class Project1 implements ArrayInt {
         }
 
         // config options for random num generation
+        int min = 0;
         int max = 1000;
-        int min = -1000;
-        int range = max - min + 1;
+        Random rand = new Random();
 
         for (int i = 0; i < n; i++) {
             if (!this.isFull()) {
-                int rand = (int) (Math.random() * range) + min;
-                this.addValue(rand);
+                int val = rand.nextInt(max - min + 1) + min;
+                this.addValue(val);
             }
         }
     }
@@ -236,7 +237,7 @@ public class Project1 implements ArrayInt {
      */
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
-        if (index >= arr.length || index < 0) {
+        if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
         }
 
@@ -282,12 +283,34 @@ public class Project1 implements ArrayInt {
     public boolean hasDuplicates() {
         HashMap<Integer, Integer> map = new HashMap<>();
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < this.size(); i++) {
             if (map.containsKey(arr[i]))
                 return true;
             else
                 map.put(arr[i], 1);
         }
         return false;
+    }
+
+    /**
+     * Debug method that returns the internal array as a string so it can be printed
+     * to console.
+     * 
+     * @return The string representation of the internal array
+     * 
+     */
+    public String arrToString(boolean sorted) {
+        int[] arrCopy = Arrays.copyOf(arr, size);
+        if (sorted == true)
+            Arrays.sort(arrCopy);
+
+        String result = "[";
+        for (int i = 0; i < arrCopy.length; i++) {
+            result += arrCopy[i];
+            if (i < arrCopy.length - 1) {
+                result += ", ";
+            }
+        }
+        return result += "]\n";
     }
 }
