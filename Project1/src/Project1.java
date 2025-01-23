@@ -230,17 +230,12 @@ public class Project1 implements ArrayInt {
     public boolean hasDuplicates() {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < arr.length; i++) {
-            // if containsKey arr[i], add to key's value
-            // else, put new key arr[i] with value of 1 in map
-            // count values of keys for highest value (?)
-            // might not be worth it, could just iterate over array
             if (map.containsKey(arr[i])) {
-                int value = map.get(arr[i]);
-                map.put(arr[i], (value + 1));
+                return true;
             } else {
                 map.put(arr[i], 1);
             }
         }
-        return false; // todo
+        return false;
     }
 }
