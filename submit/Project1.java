@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.junit.Ignore;
+
 import itsc2214.ArrayInt;
 
 /**
@@ -29,15 +31,15 @@ public class Project1 implements ArrayInt {
     }
 
     public int[] getArr() {
-        return arr;
+        return this.arr;
     }
 
     public int getCapacity() {
-        return capacity;
+        return this.capacity;
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     /**
@@ -178,7 +180,7 @@ public class Project1 implements ArrayInt {
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
+            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
         }
         return arr[index];
     }
@@ -195,7 +197,7 @@ public class Project1 implements ArrayInt {
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
+            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
         }
 
         int result = arr[index];
@@ -238,7 +240,7 @@ public class Project1 implements ArrayInt {
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at index=" + index + " was not valid.");
+            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
         }
 
         // todo - needs testing
