@@ -18,9 +18,10 @@ import itsc2214.ArrayInt;
  * @version Jan 16, 2025
  */
 public class Project1Test {
+
     @Test
     public void testOne() {
-        ArrayInt nums = new Project1(10);
+        Project1 nums = new Project1(10);
         assertNotNull(nums);
         assertTrue(nums.isEmpty()); // better be empty
         assertFalse(nums.isFull()); // better NOT be full
@@ -32,6 +33,10 @@ public class Project1Test {
         nums.addValue(19);
         nums.addValue(25);
         assertEquals(4, nums.size()); // has 4 values
-        /// ... etc ../
+    }
+
+    @Test
+    public void testTwo() {
+        Project1 nums = new Project1(111);
     }
 }

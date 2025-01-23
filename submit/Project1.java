@@ -254,6 +254,7 @@ public class Project1 implements ArrayInt {
      * here for clarity.
      * 
      * @return True if the array is empty.
+     *         False if the array is not empty.
      */
     @Override
     public boolean isEmpty() {
@@ -265,6 +266,7 @@ public class Project1 implements ArrayInt {
      * capacity are equal.
      * 
      * @return True if the internal array is considered full.
+     *         False if the internal array is not considered full.
      */
     @Override
     public boolean isFull() {
