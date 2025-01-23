@@ -293,11 +293,10 @@ public class Project1 implements ArrayInt {
     }
 
     /**
-     * Debug method that returns the internal array as a string so it can be printed
-     * to console.
+     * Debug-only method that returns the internal array as a string so it can be
+     * printed to console for testing.
      * 
-     * @return The string representation of the internal array
-     * 
+     * @return The string representation of the internal array.
      */
     public String arrToString(boolean sorted) {
         int[] arrCopy = Arrays.copyOf(arr, size);

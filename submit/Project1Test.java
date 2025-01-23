@@ -14,7 +14,7 @@ import itsc2214.ArrayInt;
  * TODO Follow it with additional details about its purpose, what abstraction
  * it represents, and how to use it.
  * 
- * @author TODO Put Your Name in the author tag
+ * @author Branson Flynn
  * @version Jan 16, 2025
  */
 public class Project1Test {
