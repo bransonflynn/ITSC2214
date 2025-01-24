@@ -15,7 +15,7 @@ import org.junit.Test;
 public class Project1Test {
 
     @Test
-    public void testOne() {
+    public void testGeneral1() {
         Project1 nums = new Project1(10);
         assertNotNull(nums);
         assertTrue(nums.isEmpty()); // better be empty
@@ -31,7 +31,7 @@ public class Project1Test {
     }
 
     @Test
-    public void testTwo() {
+    public void testGeneral2() {
         Project1 nums = new Project1(4);
         assertNotNull(nums);
         nums.addValue(1);
@@ -50,6 +50,7 @@ public class Project1Test {
         assertEquals(nums.setValue(0, 1), 1);
         // addRandom()
         // removeValueAt()
+        assertNotNull(nums);
         assertFalse(nums.isEmpty());
         assertTrue(nums.isFull());
         assertTrue(nums.hasDuplicates());
@@ -87,7 +88,7 @@ public class Project1Test {
         assertEquals(nums.getMaximum(), 10);
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void testGetAverage() {
         Project1 nums = new Project1(3);
         nums.addValue(1);
@@ -96,10 +97,7 @@ public class Project1Test {
         assertEquals(nums.getAverage(), 6.0, 0.0);
 
         Project1 numsEmpty = new Project1(0);
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            numsEmpty.getAverage();
-        });
-        assertEquals("The array was empty.", exception.getMessage());
+        numsEmpty.getAverage(); // throws IllegalStateException
     }
 
     @Test

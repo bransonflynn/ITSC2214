@@ -13,6 +13,7 @@ import itsc2214.ArrayInt;
 
 public class Project1 implements ArrayInt {
 
+    // instance variables
     private int[] arr;
     private final int capacity;
     private int size;
@@ -42,9 +43,10 @@ public class Project1 implements ArrayInt {
 
     /**
      * Finds the smallest item in the internal array.
-     * If the array is empty, this returns Integer.MIN_VALUE.
      * 
-     * @return The smallest number in the internal array.
+     * @return Populated internal array returns the smallest number in the internal
+     *         array.
+     *         Empty internal array returns Integer.MIN_VALUE.
      */
     public int getMinimum() {
         if (this.isEmpty()) {
@@ -62,9 +64,10 @@ public class Project1 implements ArrayInt {
 
     /**
      * Finds the largest item in the internal array.
-     * If the array is empty, this returns Integer.MAX_VALUE.
      * 
-     * @return The largest number in the internal array.
+     * @return Populated internal array returns the largest number in the internal
+     *         array.
+     *         Empty internal array returns Integer.MAX_VALUE.
      */
     public int getMaximum() {
         if (this.isEmpty()) {
@@ -152,7 +155,8 @@ public class Project1 implements ArrayInt {
     }
 
     /**
-     * Appends a value to the internal array. Does not grow the internal array.
+     * Appends a value to the internal array. Does not grow the length of the
+     * internal array.
      * 
      * @param value The new value to append to the internal array.
      * @throws IllegalStateException The array was full.
@@ -163,7 +167,7 @@ public class Project1 implements ArrayInt {
             throw new IllegalStateException("The array was full.");
         }
 
-        arr[this.size()] = value; // todo needs testing
+        arr[this.size()] = value;
         size++;
     }
 
@@ -186,7 +190,7 @@ public class Project1 implements ArrayInt {
     /**
      * Sets the value at the position index of the array.
      * 
-     * @param index The index to place value at.
+     * @param index The index to place the value at.
      * @param value The new value to assign to index.
      * @return The value that was previusly at index.
      * @throws IndexOutOfBoundsException The provided position at index was not
@@ -224,6 +228,8 @@ public class Project1 implements ArrayInt {
             if (!this.isFull()) {
                 int val = rand.nextInt(max - min + 1) + min;
                 this.addValue(val);
+            } else {
+                throw new IllegalStateException("The array was full.");
             }
         }
     }
@@ -241,7 +247,6 @@ public class Project1 implements ArrayInt {
             throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
         }
 
-        // todo - needs testing
         for (int i = index; i < this.capacity() - 1; i++) {
             arr[i] = arr[i + 1];
         }
@@ -275,8 +280,8 @@ public class Project1 implements ArrayInt {
 
     /**
      * Checks if the array has any duplicate values by populating and iterating
-     * through a HashMap
-     * and checking keys within the map.
+     * through a HashMap, then checking keys within the map. This approach is an
+     * alternative to recursive for loops.
      * 
      * @return True if the internal array has duplicate values.
      *         False if the array has no duplicate values.
@@ -286,26 +291,28 @@ public class Project1 implements ArrayInt {
         HashMap<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < this.size(); i++) {
-            if (map.containsKey(arr[i]))
+            if (map.containsKey(arr[i])) {
                 return true;
-            else
+            } else {
                 map.put(arr[i], 1);
+            }
         }
         return false;
+
     }
 
     /**
-     * Debug-only method that returns the internal array as a string so it can be
-     * printed to console for testing.
+     * Debug-only method that returns the internal array as a formatted and readable
+     * string so it can be printed to console for testing.
      * 
-     * @return The string representation of the internal array.
+     * @return The formatted string representation of the internal array.
      */
     public String arrToString(boolean sorted) {
         int[] arrCopy = Arrays.copyOf(arr, size);
         if (sorted == true)
             Arrays.sort(arrCopy);
 
-        String result = "[";
+        String result = "\n[";
         for (int i = 0; i < arrCopy.length; i++) {
             result += arrCopy[i];
             if (i < arrCopy.length - 1) {
