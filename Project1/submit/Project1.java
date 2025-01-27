@@ -115,20 +115,19 @@ public class Project1 implements ArrayInt {
 
     /**
      * Finds and computes the middle number within a sorted version of the internal
-     * array.
+     * array. Does not modify the existing internal array.
      * 
      * @return The number that was found (or averaged from) the middle values within
      *         a sorted copy of the internal array.
      */
     public double getMedian() {
-        // we make a copy of the array so we don't disturb the existing array's elements
         int[] arrSorted = Arrays.copyOf(arr, size);
         Arrays.sort(arrSorted);
 
         int len = arrSorted.length;
-        if (len % 2 != 0) {
+        if (len % 2 != 0) { // odd
             return (double) arrSorted[len / 2];
-        } else {
+        } else { // even
             return (double) (arrSorted[(len - 1) / 2] + arrSorted[len / 2]) / 2.0;
         }
     }
@@ -280,8 +279,8 @@ public class Project1 implements ArrayInt {
 
     /**
      * Checks if the array has any duplicate values by populating and iterating
-     * through a HashMap, then checking keys within the map. This approach is an
-     * alternative to recursive for loops.
+     * through a HashMap, then checking keys within the map. This approach is a
+     * faster alternative to a recursive for loop.
      * 
      * @return True if the internal array has duplicate values.
      *         False if the array has no duplicate values.
@@ -298,7 +297,6 @@ public class Project1 implements ArrayInt {
             }
         }
         return false;
-
     }
 
     /**
@@ -309,6 +307,7 @@ public class Project1 implements ArrayInt {
      */
     public String arrToString(boolean sorted) {
         int[] arrCopy = Arrays.copyOf(arr, size);
+
         if (sorted == true)
             Arrays.sort(arrCopy);
 
