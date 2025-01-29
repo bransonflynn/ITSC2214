@@ -160,18 +160,28 @@ public class Project1Test {
         runnerEven.setValue(-1, 2); // throws IndexOutOfBoundsException
     }
 
+    @Test
+    public void testAddRandom() {
+        runnerEmpty.addRandom(1); // throws IllegalStateException
+    }
+
     @Test(expected = IllegalStateException.class)
     public void testAddRandomThrows() {
         runnerEven.addRandom(6); // throws IllegalStateException
+        runnerEmpty.addRandom(1); // throws IllegalStateException
+        runnerEmpty.addRandom(6); // throws IllegalStateException
+    }
+
+    @Test
+    public void testRemoveValueAt() {
+        assertEquals(runnerEven.size(), 4);
+        runnerEven.removeValueAt(1);
+        assertEquals(runnerEven.size(), 3);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testRemoveValueAtThrows1() {
+    public void testRemoveValueAtThrows() {
         runnerEven.removeValueAt(6); // throws IndexOutOfBoundsException
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void testRemoveValueAtThrows2() {
         runnerEven.removeValueAt(-1); // throws IndexOutOfBoundsException
     }
 
