@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.junit.Ignore;
+
 import itsc2214.ArrayInt;
 
 /**
@@ -305,19 +307,18 @@ public class Project1 implements ArrayInt {
      * 
      * @return The formatted string representation of the internal array.
      */
-    public String arrToString(boolean sorted) {
-        int[] arrCopy = Arrays.copyOf(arr, size);
-
-        if (sorted == true)
-            Arrays.sort(arrCopy);
-
-        String result = "\n[";
-        for (int i = 0; i < arrCopy.length; i++) {
-            result += arrCopy[i];
-            if (i < arrCopy.length - 1) {
-                result += ", ";
-            }
-        }
-        return result += "]\n";
-    }
+    // @Ignore
+    // public String arrToString(boolean sorted) {
+    // int[] arrCopy = Arrays.copyOf(arr, size);
+    // if (sorted == true)
+    // Arrays.sort(arrCopy);
+    // String result = "\n[";
+    // for (int i = 0; i < arrCopy.length; i++) {
+    // result += arrCopy[i];
+    // if (i < arrCopy.length - 1) {
+    // result += ", ";
+    // }
+    // }
+    // return result += "]\n";
+    // }
 }

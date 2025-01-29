@@ -1,15 +1,18 @@
+import org.junit.Ignore;
+
 /**
  * Entry point for running Project1.
  * 
  * @author Branson Flynn
  * @version Jan 23, 2025
  */
+@Ignore
 public class App {
     public static void main(String[] args) {
         Project1 numCollection = new Project1(100);
         numCollection.addRandom(50);
 
-        System.out.println(numCollection.arrToString(true)); // temp
+        // System.out.println(numCollection.arrToString(true)); // temp
 
         System.out.println("Size        = " + numCollection.size());
         System.out.println("Minimum     = " + numCollection.getMinimum());
