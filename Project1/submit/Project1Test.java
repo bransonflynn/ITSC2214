@@ -102,7 +102,8 @@ public class Project1Test {
 
     @Test(expected = IllegalStateException.class)
     public void testGetAverageThrows() {
-        runnerEmpty.getAverage(); // throws IllegalStateException
+        Project1 runnerLocal = new Project1(10);
+        runnerLocal.getAverage(); // throws IllegalStateException
     }
 
     @Test
@@ -137,27 +138,32 @@ public class Project1Test {
 
     @Test(expected = IllegalStateException.class)
     public void testAddValueThrows() {
-        runnerEven.addValue(5); // throws IllegalStateException
+        Project1 runnerLocal = new Project1(0);
+        runnerLocal.addValue(5); // throws IllegalStateException
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows1() {
-        runnerEmpty.getValue(6); // throws IndexOutOfBoundsException
+        Project1 runnerLocal = new Project1(4);
+        runnerLocal.getValue(6); // throws IndexOutOfBoundsException
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows2() {
-        runnerEmpty.getValue(-1); // throws IndexOutOfBoundsException
+        Project1 runnerLocal = new Project1(4);
+        runnerLocal.getValue(-1); // throws IndexOutOfBoundsException
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows1() {
-        runnerEven.setValue(6, 2); // throws IndexOutOfBoundsException
+        Project1 runnerLocal = new Project1(4);
+        runnerLocal.setValue(6, 2); // throws IndexOutOfBoundsException
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows2() {
-        runnerEven.setValue(-1, 2); // throws IndexOutOfBoundsException
+        Project1 runnerLocal = new Project1(4);
+        runnerLocal.setValue(-1, 2); // throws IndexOutOfBoundsException
     }
 
     @Test
@@ -167,9 +173,10 @@ public class Project1Test {
 
     @Test(expected = IllegalStateException.class)
     public void testAddRandomThrows() {
-        runnerEven.addRandom(6); // throws IllegalStateException
-        runnerEmpty.addRandom(1); // throws IllegalStateException
-        runnerEmpty.addRandom(6); // throws IllegalStateException
+        Project1 runnerLocal = new Project1(5);
+        runnerLocal.addRandom(6); // throws IllegalStateException
+        runnerLocal.addRandom(1); // throws IllegalStateException
+        runnerLocal.addRandom(6); // throws IllegalStateException
     }
 
     @Test
@@ -181,8 +188,9 @@ public class Project1Test {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveValueAtThrows() {
-        runnerEven.removeValueAt(6); // throws IndexOutOfBoundsException
-        runnerEven.removeValueAt(-1); // throws IndexOutOfBoundsException
+        Project1 runnerLocal = new Project1(5);
+        runnerLocal.removeValueAt(6); // throws IndexOutOfBoundsException
+        runnerLocal.removeValueAt(-1); // throws IndexOutOfBoundsException
     }
 
     @Test
