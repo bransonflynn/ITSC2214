@@ -14,27 +14,18 @@ import org.junit.Test;
  */
 public class Project1Test {
 
-    private Project1 runnerEven;
-    private Project1 runnerOdd;
-    private Project1 runnerEmpty;
+    private Project1 runner;
 
     /**
      * Initializes common references for tests.
      */
     @Before
     public void setup() {
-        runnerEven = new Project1(4);
-        runnerEven.addValue(2);
-        runnerEven.addValue(20);
-        runnerEven.addValue(6);
-        runnerEven.addValue(13);
-
-        runnerOdd = new Project1(3);
-        runnerOdd.addValue(3);
-        runnerOdd.addValue(10);
-        runnerOdd.addValue(12);
-
-        runnerEmpty = new Project1(5);
+        runner = new Project1(4);
+        runner.addValue(1);
+        runner.addValue(2);
+        runner.addValue(3);
+        runner.addValue(4);
     }
 
     /**
@@ -42,12 +33,9 @@ public class Project1Test {
      */
     @Test
     public void testOne() {
-        assertNotNull(runnerEven);
-        // assertFalse(runnerEven.isEmpty()); // better be empty
-        // assertFalse(runnerEven.isFull()); // better NOT be full
-
-        assertFalse(runnerEven.isEmpty());
-        assertEquals(4, runnerEven.size());
+        // assertNotNull(runner);
+        assertFalse(runner.isEmpty());
+        assertEquals(4, runner.size());
     }
 
     /**
@@ -55,26 +43,19 @@ public class Project1Test {
      */
     @Test
     public void testTwo() {
-        Project1 runnerLocal = new Project1(4);
-        assertNotNull(runnerLocal);
-        runnerLocal.addValue(1);
-        runnerLocal.addValue(2);
-        runnerLocal.addValue(3);
-        runnerLocal.addValue(3);
-
-        assertEquals(runnerLocal.getMinimum(), 1);
-        assertEquals(runnerLocal.getMaximum(), 3);
-        assertEquals(runnerLocal.getAverage(), 2.25, 0.0);
-        assertEquals(runnerLocal.getRange(), 2);
-        assertEquals(runnerLocal.getMedian(), 2.5, 0.0);
-        assertEquals(runnerLocal.getSize(), 4);
-        assertEquals(runnerLocal.getCapacity(), 4);
-        assertEquals(runnerLocal.getValue(1), 2);
-        assertEquals(runnerLocal.setValue(0, 1), 1);
-        assertNotNull(runnerLocal);
-        assertFalse(runnerLocal.isEmpty());
-        assertTrue(runnerLocal.isFull());
-        assertTrue(runnerLocal.hasDuplicates());
+        assertEquals(runner.getMinimum(), 1);
+        assertEquals(runner.getMaximum(), 4);
+        assertEquals(runner.getAverage(), 2.5, 0.0);
+        assertEquals(runner.getRange(), 3);
+        assertEquals(runner.getMedian(), 2.5, 0.0);
+        assertEquals(runner.getSize(), 4);
+        assertEquals(runner.getCapacity(), 4);
+        assertEquals(runner.getValue(1), 2);
+        assertEquals(runner.setValue(0, 1), 1);
+        assertNotNull(runner);
+        assertFalse(runner.isEmpty());
+        assertTrue(runner.isFull());
+        assertFalse(runner.hasDuplicates());
     }
 
     /**
@@ -82,9 +63,9 @@ public class Project1Test {
      */
     @Test
     public void testGetters() {
-        assertNotNull(runnerEven.getArr());
-        assertNotNull(runnerEven.getCapacity());
-        assertNotNull(runnerEven.getSize());
+        assertNotNull(runner.getArr());
+        assertNotNull(runner.getCapacity());
+        assertNotNull(runner.getSize());
     }
 
     /**
@@ -92,11 +73,16 @@ public class Project1Test {
      */
     @Test
     public void testGetMinimum() {
-        assertEquals(runnerEmpty.getMinimum(), Integer.MIN_VALUE);
-        runnerEmpty.addValue(1);
-        runnerEmpty.addValue(5);
-        runnerEmpty.addValue(10);
-        assertEquals(runnerEmpty.getMinimum(), 1);
+        assertEquals(runner.getMinimum(), 1);
+
+        runner = new Project1(3);
+        assertEquals(runner.getMinimum(), Integer.MIN_VALUE);
+
+        runner = new Project1(3);
+        runner.addValue(3);
+        runner.addValue(2);
+        runner.addValue(1);
+        assertEquals(runner.getMinimum(), 1);
     }
 
     /**
@@ -104,11 +90,16 @@ public class Project1Test {
      */
     @Test
     public void testGetMaximum() {
-        assertEquals(runnerEmpty.getMaximum(), Integer.MAX_VALUE);
-        runnerEmpty.addValue(1);
-        runnerEmpty.addValue(5);
-        runnerEmpty.addValue(10);
-        assertEquals(runnerEmpty.getMaximum(), 10);
+        assertEquals(runner.getMaximum(), 4);
+
+        runner = new Project1(3);
+        assertEquals(runner.getMaximum(), Integer.MAX_VALUE);
+
+        runner = new Project1(3);
+        runner.addValue(3);
+        runner.addValue(2);
+        runner.addValue(1);
+        assertEquals(runner.getMaximum(), 3);
     }
 
     /**
@@ -116,7 +107,7 @@ public class Project1Test {
      */
     @Test
     public void testGetAverage() {
-        assertEquals(runnerEven.getAverage(), 10.25, 0.0);
+        assertEquals(runner.getAverage(), 2.5, 0.0);
     }
 
     /**
@@ -124,8 +115,8 @@ public class Project1Test {
      */
     @Test(expected = IllegalStateException.class)
     public void testGetAverageThrows() {
-        Project1 runnerLocal = new Project1(10);
-        runnerLocal.getAverage(); // throws IllegalStateException
+        Project1 runner = new Project1(1);
+        runner.getAverage(); // throws IllegalStateException
     }
 
     /**
@@ -133,7 +124,7 @@ public class Project1Test {
      */
     @Test
     public void testGetRange() {
-        assertEquals(runnerEven.getRange(), 18);
+        assertEquals(runner.getRange(), 3);
     }
 
     /**
@@ -141,17 +132,13 @@ public class Project1Test {
      */
     @Test
     public void testGetMedian() {
-        Project1 runnerEvenEven = new Project1(2);
-        runnerEvenEven.addValue(2);
-        runnerEvenEven.addValue(4);
+        assertEquals(runner.getMedian(), 2.5, 0.0);
 
-        Project1 runnerEvenOdd = new Project1(3);
-        runnerEvenOdd.addValue(1);
-        runnerEvenOdd.addValue(3);
-        runnerEvenOdd.addValue(5);
-
-        assertEquals(runnerEvenEven.getMedian(), 3.0, 0.0);
-        assertEquals(runnerEvenOdd.getMedian(), 3.0, 0.0);
+        runner = new Project1(3);
+        runner.addValue(1);
+        runner.addValue(2);
+        runner.addValue(3);
+        assertEquals(runner.getMedian(), 2, 0.0);
     }
 
     /**
@@ -159,7 +146,7 @@ public class Project1Test {
      */
     @Test
     public void testSize() {
-        assertEquals(runnerEven.size(), runnerEven.getSize());
+        assertEquals(runner.size(), runner.getSize());
     }
 
     /**
@@ -167,7 +154,7 @@ public class Project1Test {
      */
     @Test
     public void testCapacity() {
-        assertEquals(runnerEven.capacity(), runnerEven.getCapacity());
+        assertEquals(runner.capacity(), runner.getCapacity());
     }
 
     /**
@@ -175,8 +162,8 @@ public class Project1Test {
      */
     @Test(expected = IllegalStateException.class)
     public void testAddValueThrows() {
-        Project1 runnerLocal = new Project1(0);
-        runnerLocal.addValue(5); // throws IllegalStateException
+        Project1 runner = new Project1(0);
+        runner.addValue(5); // throws IllegalStateException
     }
 
     /**
@@ -184,8 +171,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows1() {
-        Project1 runnerLocal = new Project1(4);
-        runnerLocal.getValue(6); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(4);
+        runner.getValue(6); // throws IndexOutOfBoundsException
     }
 
     /**
@@ -193,8 +180,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows2() {
-        Project1 runnerLocal = new Project1(4);
-        runnerLocal.getValue(-1); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(4);
+        runner.getValue(-1); // throws IndexOutOfBoundsException
     }
 
     /**
@@ -202,8 +189,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows1() {
-        Project1 runnerLocal = new Project1(4);
-        runnerLocal.setValue(6, 2); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(4);
+        runner.setValue(6, 2); // throws IndexOutOfBoundsException
     }
 
     /**
@@ -211,8 +198,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows2() {
-        Project1 runnerLocal = new Project1(4);
-        runnerLocal.setValue(-1, 2); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(4);
+        runner.setValue(-1, 2); // throws IndexOutOfBoundsException
     }
 
     /**
@@ -220,7 +207,8 @@ public class Project1Test {
      */
     @Test
     public void testAddRandom() {
-        runnerEmpty.addRandom(1); // throws IllegalStateException
+        runner = new Project1(1);
+        runner.addRandom(1);
     }
 
     /**
@@ -228,8 +216,8 @@ public class Project1Test {
      */
     @Test(expected = IllegalStateException.class)
     public void testAddRandomThrows1() {
-        Project1 runnerLocal = new Project1(3);
-        runnerLocal.addRandom(6); // throws IllegalStateException
+        Project1 runner = new Project1(3);
+        runner.addRandom(6); // throws IllegalStateException
     }
 
     /**
@@ -237,9 +225,9 @@ public class Project1Test {
      */
     @Test(expected = IllegalStateException.class)
     public void testAddRandomThrow2() {
-        Project1 runnerLocal = new Project1(1);
-        runnerLocal.addRandom(1);
-        runnerLocal.addRandom(1); // throws IllegalStateException
+        Project1 runner = new Project1(1);
+        runner.addRandom(1);
+        runner.addRandom(1); // throws IllegalStateException
     }
 
     /**
@@ -247,9 +235,9 @@ public class Project1Test {
      */
     @Test
     public void testRemoveValueAt() {
-        assertEquals(runnerEven.size(), 4);
-        runnerEven.removeValueAt(1);
-        assertEquals(runnerEven.size(), 3);
+        assertEquals(runner.size(), 4);
+        runner.removeValueAt(1);
+        assertEquals(runner.size(), 3);
     }
 
     /**
@@ -257,8 +245,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveValueAtThrows1() {
-        Project1 runnerLocal = new Project1(5);
-        runnerLocal.removeValueAt(6); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(5);
+        runner.removeValueAt(6); // throws IndexOutOfBoundsException
 
     }
 
@@ -267,8 +255,8 @@ public class Project1Test {
      */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testRemoveValueAtThrows2() {
-        Project1 runnerLocal = new Project1(5);
-        runnerLocal.removeValueAt(-1); // throws IndexOutOfBoundsException
+        Project1 runner = new Project1(5);
+        runner.removeValueAt(-1); // throws IndexOutOfBoundsException
 
     }
 
@@ -277,9 +265,9 @@ public class Project1Test {
      */
     @Test
     public void testIsEmpty() {
-        Project1 runnerLocal = new Project1(3);
-        assertTrue(runnerLocal.isEmpty());
-        assertFalse(runnerEven.isEmpty());
+        assertFalse(runner.isEmpty());
+        Project1 runner = new Project1(1);
+        assertTrue(runner.isEmpty());
     }
 
     /**
@@ -287,8 +275,9 @@ public class Project1Test {
      */
     @Test
     public void testIsFull() {
-        assertFalse(runnerEmpty.isFull());
-        assertTrue(runnerEven.isFull());
+        // assertTrue(runner.isFull());
+        runner = new Project1(2);
+        assertFalse(runner.isFull());
     }
 
     /**
@@ -296,13 +285,13 @@ public class Project1Test {
      */
     @Test
     public void testHasDuplicates() {
-        Project1 runnerEven = new Project1(5);
-        runnerEven.addValue(1);
-        runnerEven.addValue(2);
-        runnerEven.addValue(3);
-        runnerEven.addValue(4);
-        assertFalse(runnerEven.hasDuplicates());
-        runnerEven.addValue(4);
-        assertTrue(runnerEven.hasDuplicates());
+        Project1 runner = new Project1(5);
+        runner.addValue(1);
+        runner.addValue(2);
+        runner.addValue(3);
+        runner.addValue(4);
+        assertFalse(runner.hasDuplicates());
+        runner.addValue(4);
+        assertTrue(runner.hasDuplicates());
     }
 }
