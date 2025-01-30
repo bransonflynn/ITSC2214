@@ -2,12 +2,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.junit.Ignore;
-
 import itsc2214.ArrayInt;
 
 /**
- * This is an int[] wrapper class for ITSC2214 Project1
+ * This is an int[] wrapper class for ITSC2214 Project1.
  * 
  * @author Branson Flynn
  * @version Jan 16, 2025
@@ -31,14 +29,29 @@ public class Project1 implements ArrayInt {
         this.size = 0;
     }
 
+    /**
+     * Getter method for arr.
+     * 
+     * @return The internal array of this instance.
+     */
     public int[] getArr() {
         return this.arr;
     }
 
+    /**
+     * Getter method for capacity.
+     * 
+     * @return The capacity of this instance.
+     */
     public int getCapacity() {
         return this.capacity;
     }
 
+    /**
+     * Getter method for size.
+     * 
+     * @return The size of this instance.
+     */
     public int getSize() {
         return this.size;
     }
@@ -101,7 +114,8 @@ public class Project1 implements ArrayInt {
         for (int i = 0; i < this.size(); i++) {
             result += arr[i];
         }
-        return result /= (double) size();
+        result /= (double) size();
+        return result;
     }
 
     /**
@@ -183,7 +197,8 @@ public class Project1 implements ArrayInt {
     @Override
     public int getValue(int index) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
+            throw new IndexOutOfBoundsException(
+                    "The provided position at the index was not valid.");
         }
         return arr[index];
     }
@@ -200,7 +215,8 @@ public class Project1 implements ArrayInt {
     @Override
     public int setValue(int index, int value) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
+            throw new IndexOutOfBoundsException(
+                    "The provided position at the index was not valid.");
         }
 
         int result = arr[index];
@@ -245,7 +261,8 @@ public class Project1 implements ArrayInt {
     @Override
     public void removeValueAt(int index) throws IndexOutOfBoundsException {
         if (index >= this.size() || index < 0) {
-            throw new IndexOutOfBoundsException("The provided position at the index was not valid.");
+            throw new IndexOutOfBoundsException(
+                    "The provided position at the index was not valid.");
         }
 
         for (int i = index; i < this.capacity() - 1; i++) {

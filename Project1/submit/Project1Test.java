@@ -1,11 +1,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -20,6 +18,9 @@ public class Project1Test {
     private Project1 runnerOdd;
     private Project1 runnerEmpty;
 
+    /**
+     * Initializes common references for tests.
+     */
     @Before
     public void setup() {
         runnerEven = new Project1(4);
@@ -36,6 +37,9 @@ public class Project1Test {
         runnerEmpty = new Project1(5);
     }
 
+    /**
+     * General test case.
+     */
     @Test
     public void testOne() {
         assertNotNull(runnerEven);
@@ -46,6 +50,9 @@ public class Project1Test {
         assertEquals(4, runnerEven.size());
     }
 
+    /**
+     * General test case.
+     */
     @Test
     public void testTwo() {
         Project1 runnerLocal = new Project1(4);
@@ -70,6 +77,9 @@ public class Project1Test {
         assertTrue(runnerLocal.hasDuplicates());
     }
 
+    /**
+     * Test cases for getter methods.
+     */
     @Test
     public void testGetters() {
         assertNotNull(runnerEven.getArr());
@@ -77,6 +87,9 @@ public class Project1Test {
         assertNotNull(runnerEven.getSize());
     }
 
+    /**
+     * Test cases for getMinimum.
+     */
     @Test
     public void testGetMinimum() {
         assertEquals(runnerEmpty.getMinimum(), Integer.MIN_VALUE);
@@ -86,6 +99,9 @@ public class Project1Test {
         assertEquals(runnerEmpty.getMinimum(), 1);
     }
 
+    /**
+     * Test cases for getMaximum.
+     */
     @Test
     public void testGetMaximum() {
         assertEquals(runnerEmpty.getMaximum(), Integer.MAX_VALUE);
@@ -95,22 +111,34 @@ public class Project1Test {
         assertEquals(runnerEmpty.getMaximum(), 10);
     }
 
+    /**
+     * Test cases for getAverage.
+     */
     @Test
     public void testGetAverage() {
         assertEquals(runnerEven.getAverage(), 10.25, 0.0);
     }
 
+    /**
+     * Test cases for getAverage where an exception would be thrown.
+     */
     @Test(expected = IllegalStateException.class)
     public void testGetAverageThrows() {
         Project1 runnerLocal = new Project1(10);
         runnerLocal.getAverage(); // throws IllegalStateException
     }
 
+    /**
+     * Test cases for range calculation.
+     */
     @Test
     public void testGetRange() {
         assertEquals(runnerEven.getRange(), 18);
     }
 
+    /**
+     * Test cases for getMedian calculation.
+     */
     @Test
     public void testGetMedian() {
         Project1 runnerEvenEven = new Project1(2);
@@ -126,59 +154,97 @@ public class Project1Test {
         assertEquals(runnerEvenOdd.getMedian(), 3.0, 0.0);
     }
 
+    /**
+     * Test cases for size equality.
+     */
     @Test
     public void testSize() {
         assertEquals(runnerEven.size(), runnerEven.getSize());
     }
 
+    /**
+     * Test cases for Capacity.
+     */
     @Test
     public void testCapacity() {
         assertEquals(runnerEven.capacity(), runnerEven.getCapacity());
     }
 
+    /**
+     * Test cases for addValue where an exception would be thrown.
+     */
     @Test(expected = IllegalStateException.class)
     public void testAddValueThrows() {
         Project1 runnerLocal = new Project1(0);
         runnerLocal.addValue(5); // throws IllegalStateException
     }
 
+    /**
+     * Test cases for getValue where an exception would be thrown.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows1() {
         Project1 runnerLocal = new Project1(4);
         runnerLocal.getValue(6); // throws IndexOutOfBoundsException
     }
 
+    /**
+     * Test cases for getValue where an exception would be thrown.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetValueThrows2() {
         Project1 runnerLocal = new Project1(4);
         runnerLocal.getValue(-1); // throws IndexOutOfBoundsException
     }
 
+    /**
+     * Test cases for setValue where an exception would be thrown.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows1() {
         Project1 runnerLocal = new Project1(4);
         runnerLocal.setValue(6, 2); // throws IndexOutOfBoundsException
     }
 
+    /**
+     * Test cases for setValue where an exception would be thrown.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testSetValueThrows2() {
         Project1 runnerLocal = new Project1(4);
         runnerLocal.setValue(-1, 2); // throws IndexOutOfBoundsException
     }
 
+    /**
+     * Test cases for addRandom.
+     */
     @Test
     public void testAddRandom() {
         runnerEmpty.addRandom(1); // throws IllegalStateException
     }
 
+    /**
+     * Test cases for addRandom where an exception would be thrown.
+     */
     @Test(expected = IllegalStateException.class)
-    public void testAddRandomThrows() {
-        Project1 runnerLocal = new Project1(5);
-        runnerLocal.addRandom(6); // throws IllegalStateException
-        runnerLocal.addRandom(1); // throws IllegalStateException
+    public void testAddRandomThrows1() {
+        Project1 runnerLocal = new Project1(3);
         runnerLocal.addRandom(6); // throws IllegalStateException
     }
 
+    /**
+     * Test cases for addRandom where an exception would be thrown.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testAddRandomThrow2() {
+        Project1 runnerLocal = new Project1(1);
+        runnerLocal.addRandom(1);
+        runnerLocal.addRandom(1); // throws IllegalStateException
+    }
+
+    /**
+     * Test cases for removeValueAt.
+     */
     @Test
     public void testRemoveValueAt() {
         assertEquals(runnerEven.size(), 4);
@@ -186,29 +252,48 @@ public class Project1Test {
         assertEquals(runnerEven.size(), 3);
     }
 
+    /**
+     * Test cases for removeValueAt where an exception would be thrown.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
-    public void testRemoveValueAtThrows() {
+    public void testRemoveValueAtThrows1() {
         Project1 runnerLocal = new Project1(5);
         runnerLocal.removeValueAt(6); // throws IndexOutOfBoundsException
-        runnerLocal.removeValueAt(-1); // throws IndexOutOfBoundsException
+
     }
 
+    /**
+     * Test cases for removeValueAt where an exception would be thrown.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveValueAtThrows2() {
+        Project1 runnerLocal = new Project1(5);
+        runnerLocal.removeValueAt(-1); // throws IndexOutOfBoundsException
+
+    }
+
+    /**
+     * Test cases for isEmpty.
+     */
     @Test
     public void testIsEmpty() {
-        Project1 runnerEven = new Project1(5);
-        assertTrue(runnerEven.isEmpty());
-        runnerEven.addValue(1);
+        Project1 runnerLocal = new Project1(3);
+        assertTrue(runnerLocal.isEmpty());
         assertFalse(runnerEven.isEmpty());
     }
 
+    /**
+     * Test cases for isFull.
+     */
     @Test
     public void testIsFull() {
-        Project1 runnerEven = new Project1(1);
-        assertFalse(runnerEven.isFull());
-        runnerEven.addValue(1);
+        assertFalse(runnerEmpty.isFull());
         assertTrue(runnerEven.isFull());
     }
 
+    /**
+     * Test cases for hasDuplicates.
+     */
     @Test
     public void testHasDuplicates() {
         Project1 runnerEven = new Project1(5);
