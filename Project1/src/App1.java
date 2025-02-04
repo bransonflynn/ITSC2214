@@ -7,7 +7,7 @@ import org.junit.Ignore;
  * @version Jan 23, 2025
  */
 @Ignore
-public class App {
+public class App1 {
     public static void main(String[] args) {
         Project1 numCollection = new Project1(100);
         numCollection.addRandom(50);
