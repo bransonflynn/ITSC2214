@@ -1,7 +1,5 @@
 package Project2.submit;
 
-import itsc2214.*;
-
 /**
  * Custom object to store "words" as string:int key:value pair for use in
  * HashWords.java

@@ -15,8 +15,7 @@ package Project2.submit;
  * @version Feb 04, 2025
  */
 
-// self note - this is just an array of WordFrequency which is a string:int
-// pair, easy
+// self - this is just an arr of WordFrequency which is a string:int pair, easy
 public class HashWords {
 
     private WordFrequency[] words;
@@ -36,15 +35,16 @@ public class HashWords {
     }
 
     public int hashKey(String w) {
-        w.toLowerCase(); // case-insensitive
+        w.toLowerCase();
 
         char[] wChars = w.toCharArray();
         int charValue = 0;
         for (int i = 0; i < w.length(); i++) {
-            charValue += wChars[i];
+            charValue += (int) wChars[i];
         }
 
-        return charValue % this.size();
+        int ret = charValue % this.size();
+        return ret;
     }
 
     /**
@@ -53,10 +53,50 @@ public class HashWords {
      * @param w The word to add to the table.
      */
     public void addWord(String w) {
-        // TODO
-        // note - be sure to check and increment uniqueWords++ if word is not found
-        // note - same for totalWords, check spec
+        w.toLowerCase();
+
+        int hashKeyIndex = this.hashKey(w);
+        int wordIndex = this.getWordIndex(w);
+
+        // uniqueWords++;
+        // totalWords++;
+        if (this.contains(w)) {
+            this.words[wordIndex].increment();
+            totalWords++;
+            return;
+        }
+
     }
+    //
+    // TODO - temp addWord() specifications for convenience
+    //
+    // --DONE--
+    // To add the word to the table, the algorithm should call hashKey() to get the
+    // index for the word.
+
+    // --DONE--
+    // Then, the algorithm should check to see if the word already exists in the
+    // table. If it is, it simply increments the count stored in the WordFrequency
+    // for that word and the work is done.
+
+    // --NOT DONE--
+    // If the word is not on the table, the algorithm should check if there is space
+    // in the table to store one more word. If there is, it should proceed to add
+    // the word to the hash table.
+
+    // --NOT DONE--
+    // If there is no more space, the method should grow the array and rehash all of
+    // the words to add them back into the table. The new size needs to be 3 times
+    // of the previous size. Only after expanding the table and rehashing all the
+    // words, it should proceed to add the new word to the hash table.
+
+    // --NOT DONE--
+    // Note that adding a word to the table might require dealing with collisions.
+    // If there is a collision, use linear probing to find an empty location in the
+    // table where the word will be stored.
+    //
+    //
+    //
 
     /**
      * Does this hash table contain this word (w)?
@@ -67,12 +107,10 @@ public class HashWords {
     public boolean contains(String w) {
         w.toLowerCase();
 
-        for (int i = 0; i < this.size(); i++) {
-            if (this.words[i].getWord().equals(w)) {
-                return true;
-            }
-        }
-        return false;
+        if (this.getWordIndex(w) > -1)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -84,12 +122,11 @@ public class HashWords {
     public int frequency(String w) {
         w.toLowerCase();
 
-        for (int i = 0; i < this.size(); i++) {
-            if (this.words[i].getWord().equals(w)) {
-                return this.words[i].getCount();
-            }
-        }
-        return 0; // not found
+        int index = this.getWordIndex(w);
+        if (index > -1) // found
+            return this.words[index].getCount();
+        else // not found
+            return 0;
     }
 
     /**
@@ -121,6 +158,9 @@ public class HashWords {
         int foundIndex = -1;
 
         for (int i = 0; i < this.size(); i++) {
+            if (this.words[i] == null) {
+                continue; // skip if table's index is empty or unassigned
+            }
             if (this.words[i].getCount() > foundValue) {
                 foundValue = this.words[i].getCount();
                 foundValue = i;
@@ -146,5 +186,24 @@ public class HashWords {
         }
         double ret = this.frequency(w) / this.totalNumOfWords();
         return ret;
+    }
+
+    /**
+     * Returns the index of word(w) in the table.
+     * Self method - not required in specs.
+     * 
+     * @param w The word to find.
+     * @return The index of the word if found. -1 if not found.
+     */
+    public int getWordIndex(String w) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.words[i] == null) {
+                continue; // skip if table's index is empty or unassigned
+            }
+            if (this.words[i].getWord().equals(w)) {
+                return this.words[i].getCount();
+            }
+        }
+        return -1;
     }
 }

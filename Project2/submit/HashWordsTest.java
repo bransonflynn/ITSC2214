@@ -3,8 +3,6 @@ package Project2.submit;
 import org.junit.Before;
 import org.junit.Test;
 
-import itsc2214.*;
-
 /**
  * Test cases for HashWords.java to ensure proper coverage of methods.
  * 
@@ -15,6 +13,7 @@ import itsc2214.*;
 
 public class HashWordsTest {
 
+    @SuppressWarnings("unused")
     private HashWords hash;
 
     @Before
