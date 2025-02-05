@@ -39,7 +39,7 @@ public class HashWords {
     }
 
     /**
-     * Returns the size of the table used internally
+     * Returns the size of the table used internally.
      * 
      * @return
      */
@@ -88,8 +88,8 @@ public class HashWords {
     }
     //
     // TODO - temp addWord() specifications for convenience
-    // remember to increment uniqueWords and totalWords for relevant steps
-    // the numeric annotations "#)." above are temp and should be deleted when done
+    // - remember to increment uniqueWords and totalWords for relevant steps
+    // - the annotations "#)." above are temp and should be deleted when done
     //
     // --DONE--
     // 1.) To add the word to the table, the algorithm should call hashKey() to get
@@ -225,7 +225,7 @@ public class HashWords {
                 continue; // skip if table's index is empty or unassigned
             }
             if (this.words[i].getWord().equals(w)) {
-                return this.words[i].getCount();
+                return i;
             }
         }
         return -1; // not found
