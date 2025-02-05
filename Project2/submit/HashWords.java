@@ -44,7 +44,7 @@ public class HashWords {
      * @return
      */
     public int size() {
-        return words.length;
+        return this.size;
     }
 
     /**
