@@ -1,5 +1,7 @@
 package Project2.submit;
 
+import org.junit.Ignore;
+
 /**
  * This class implements a hash table.
  * 
@@ -39,16 +41,16 @@ public class HashWords {
     }
 
     /**
-     * Returns the size of the table used internally.
+     * Returns the current size of the table.
      * 
-     * @return
+     * @return The current size of the table.
      */
     public int size() {
         return this.size;
     }
 
     /**
-     * Computes the key for argument w according to the specs of the Project.
+     * Computes the key for arg (w) according to the specs of the Project.
      * 
      * @param w The word to find the key for.
      * @return The computed key
@@ -57,12 +59,12 @@ public class HashWords {
         w.toLowerCase();
 
         char[] wChars = w.toCharArray();
-        int charValue = 0;
-        for (int i = 0; i < w.length(); i++) {
-            charValue += (int) wChars[i];
+        int ret = 0;
+        for (int i = 0; i < wChars.length; i++) {
+            ret += (int) wChars[i];
         }
 
-        int ret = charValue % this.size();
+        ret %= this.size();
         return ret;
     }
 
@@ -76,7 +78,7 @@ public class HashWords {
 
         // 1.)
         int hashKey = this.hashKey(w);
-        int wordIndex = this.getWordIndex(w); // initialized early since we use it in both cases
+        int wordIndex = this.getWordIndex(w); // init'd early since we use it in all cases
 
         // 2.)
         if (this.contains(w)) {
@@ -85,6 +87,31 @@ public class HashWords {
             return;
         }
 
+        // 3.)
+        // todo this sucks
+        // check if index from hashkey is occupied. linear probe if needed
+        if (this.words[hashKey] == null) {
+            // has space
+            this.words[hashKey] = new WordFrequency(w);
+            this.totalWords++;
+            this.uniqueWords++;
+        } else {
+            // does not have space - rehash table
+            WordFrequency[] wordsNew = new WordFrequency[this.size() * 3];
+            for (int i = 0; i < this.words.length; i++) {
+                if (this.words[i] == null) {
+                    continue;
+                } else {
+                    // note - so dumb but im leaving it for rn
+                    wordsNew[this.hashKey(this.words[i].getWord())] = this.words[i];
+                    this.totalWords++;
+                    this.uniqueWords++;
+                }
+            }
+            wordsNew[hashKey] = new WordFrequency(w);
+            this.totalWords++;
+            this.uniqueWords++;
+        }
     }
     //
     // TODO - temp addWord() specifications for convenience
@@ -93,8 +120,7 @@ public class HashWords {
     //
     // --DONE--
     // 1.) To add the word to the table, the algorithm should call hashKey() to get
-    // the
-    // index for the word.
+    // the index for the word.
 
     // --DONE--
     // 2.) Then, the algorithm should check to see if the word already exists in the
@@ -103,16 +129,14 @@ public class HashWords {
 
     // --NOT DONE--
     // 3.) If the word is not on the table, the algorithm should check if there is
-    // space
-    // in the table to store one more word. If there is, it should proceed to add
-    // the word to the hash table.
+    // space in the table to store one more word. If there is, it should proceed to
+    // add the word to the hash table.
 
     // --NOT DONE--
     // 4.) If there is no more space, the method should grow the array and rehash
-    // all of
-    // the words to add them back into the table. The new size needs to be 3 times
-    // of the previous size. Only after expanding the table and rehashing all the
-    // words, it should proceed to add the new word to the hash table.
+    // all of the words to add them back into the table. The new size needs to be 3
+    // times of the previous size. Only after expanding the table and rehashing all
+    // the words, it should proceed to add the new word to the hash table.
 
     // --NOT DONE--
     // 5.) Note that adding a word to the table might require dealing with
@@ -132,10 +156,7 @@ public class HashWords {
     public boolean contains(String w) {
         w.toLowerCase();
 
-        if (this.getWordIndex(w) > -1)
-            return true;
-        else
-            return false;
+        return this.getWordIndex(w) > -1;
     }
 
     /**
@@ -188,7 +209,7 @@ public class HashWords {
             }
             if (this.words[i].getCount() > foundValue) {
                 foundValue = this.words[i].getCount();
-                foundValue = i;
+                foundIndex = i;
             }
         }
 
@@ -213,12 +234,27 @@ public class HashWords {
     }
 
     /**
+     * Linear probing algorithm to solve collision issues.
+     * 
+     * @return The index of the next empty location.
+     */
+    public int linearProbe() {
+        for (int i = 0; i < this.words.length; i++) {
+            if (this.words[i] == null) {
+                return i;
+            }
+        }
+        return -1; // not found
+    }
+
+    /**
      * Returns the index of word(w) in the table.
      * Self method - not required in specs.
      * 
      * @param w The word to find.
      * @return The index of the word if found. -1 if not found.
      */
+    @Ignore
     public int getWordIndex(String w) {
         for (int i = 0; i < this.size(); i++) {
             if (this.words[i] == null) {
