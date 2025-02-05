@@ -16,24 +16,43 @@ package Project2.submit;
  */
 
 // self - this is just an arr of WordFrequency which is a string:int pair, easy
+// self - toLowercase() already internally checks for any chars being lowercase
+// before operating
 public class HashWords {
 
+    // fields
     private WordFrequency[] words;
-    private int initialSize;
+    private int size;
     private int uniqueWords;
     private int totalWords;
 
+    /**
+     * Class constructor.
+     * 
+     * @param initialSize The starting size of the table.
+     */
     public HashWords(int initialSize) {
         this.words = new WordFrequency[initialSize];
-        this.initialSize = initialSize;
+        this.size = initialSize;
         this.uniqueWords = 0;
         this.totalWords = 0;
     }
 
+    /**
+     * Returns the size of the table used internally
+     * 
+     * @return
+     */
     public int size() {
         return words.length;
     }
 
+    /**
+     * Computes the key for argument w according to the specs of the Project.
+     * 
+     * @param w The word to find the key for.
+     * @return The computed key
+     */
     public int hashKey(String w) {
         w.toLowerCase();
 
@@ -55,43 +74,49 @@ public class HashWords {
     public void addWord(String w) {
         w.toLowerCase();
 
-        int hashKeyIndex = this.hashKey(w);
-        int wordIndex = this.getWordIndex(w);
+        // 1.)
+        int hashKey = this.hashKey(w);
+        int wordIndex = this.getWordIndex(w); // initialized early since we use it in both cases
 
-        // uniqueWords++;
-        // totalWords++;
+        // 2.)
         if (this.contains(w)) {
             this.words[wordIndex].increment();
-            totalWords++;
+            this.totalWords++;
             return;
         }
 
     }
     //
     // TODO - temp addWord() specifications for convenience
+    // remember to increment uniqueWords and totalWords for relevant steps
+    // the numeric annotations "#)." above are temp and should be deleted when done
     //
     // --DONE--
-    // To add the word to the table, the algorithm should call hashKey() to get the
+    // 1.) To add the word to the table, the algorithm should call hashKey() to get
+    // the
     // index for the word.
 
     // --DONE--
-    // Then, the algorithm should check to see if the word already exists in the
+    // 2.) Then, the algorithm should check to see if the word already exists in the
     // table. If it is, it simply increments the count stored in the WordFrequency
     // for that word and the work is done.
 
     // --NOT DONE--
-    // If the word is not on the table, the algorithm should check if there is space
+    // 3.) If the word is not on the table, the algorithm should check if there is
+    // space
     // in the table to store one more word. If there is, it should proceed to add
     // the word to the hash table.
 
     // --NOT DONE--
-    // If there is no more space, the method should grow the array and rehash all of
+    // 4.) If there is no more space, the method should grow the array and rehash
+    // all of
     // the words to add them back into the table. The new size needs to be 3 times
     // of the previous size. Only after expanding the table and rehashing all the
     // words, it should proceed to add the new word to the hash table.
 
     // --NOT DONE--
-    // Note that adding a word to the table might require dealing with collisions.
+    // 5.) Note that adding a word to the table might require dealing with
+    // collisions.
     // If there is a collision, use linear probing to find an empty location in the
     // table where the word will be stored.
     //
@@ -123,10 +148,10 @@ public class HashWords {
         w.toLowerCase();
 
         int index = this.getWordIndex(w);
-        if (index > -1) // found
-            return this.words[index].getCount();
-        else // not found
-            return 0;
+        if (index > -1)
+            return this.words[index].getCount(); // found
+        else
+            return 0; // not found
     }
 
     /**
@@ -175,8 +200,7 @@ public class HashWords {
      * 
      * @param w The word to search for.
      * @return The ratio of the number of times a particular word appears divided by
-     *         the total number of words in the document.
-     *         If not found, returns 0.0
+     *         the total number of words in the document. If not found, returns 0.0
      */
     public double termFrequency(String w) {
         w.toLowerCase();
@@ -204,6 +228,6 @@ public class HashWords {
                 return this.words[i].getCount();
             }
         }
-        return -1;
+        return -1; // not found
     }
 }

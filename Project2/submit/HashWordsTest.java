@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class HashWordsTest {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // temp 
     private HashWords hash;
 
     @Before
