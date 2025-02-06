@@ -13,6 +13,8 @@ import org.junit.Ignore;
  * adds the character value for each letter in the String and compute modulo
  * with the size of the table.
  * 
+ * The table is case-insensitive and converts all words to lowercase.
+ * 
  * @author Branson Flynn
  * @version Feb 04, 2025
  */
@@ -58,8 +60,8 @@ public class HashWords {
     public int hashKey(String w) {
         w.toLowerCase();
 
-        char[] wChars = w.toCharArray();
         int ret = 0;
+        char[] wChars = w.toCharArray();
         for (int i = 0; i < wChars.length; i++) {
             ret += (int) wChars[i];
         }
@@ -98,6 +100,8 @@ public class HashWords {
         } else {
             // does not have space - rehash table
             WordFrequency[] wordsNew = new WordFrequency[this.size() * 3];
+            this.uniqueWords = 0;
+            this.totalWords = 0;
             for (int i = 0; i < this.words.length; i++) {
                 if (this.words[i] == null) {
                     continue;
@@ -114,7 +118,7 @@ public class HashWords {
         }
     }
     //
-    // TODO - temp addWord() specifications for convenience
+    // TODO - temp addWord() specifications
     // - remember to increment uniqueWords and totalWords for relevant steps
     // - the annotations "#)." above are temp and should be deleted when done
     //
@@ -202,7 +206,6 @@ public class HashWords {
     public String mostCommonWord() {
         int foundValue = Integer.MIN_VALUE;
         int foundIndex = -1;
-
         for (int i = 0; i < this.size(); i++) {
             if (this.words[i] == null) {
                 continue; // skip if table's index is empty or unassigned
@@ -212,7 +215,6 @@ public class HashWords {
                 foundIndex = i;
             }
         }
-
         return this.words[foundIndex].getWord();
     }
 
@@ -229,7 +231,7 @@ public class HashWords {
         if (!this.contains(w)) {
             return 0.0;
         }
-        double ret = this.frequency(w) / this.totalNumOfWords();
+        double ret = (double) this.frequency(w) / this.totalNumOfWords();
         return ret;
     }
 
@@ -254,7 +256,6 @@ public class HashWords {
      * @param w The word to find.
      * @return The index of the word if found. -1 if not found.
      */
-    @Ignore
     public int getWordIndex(String w) {
         for (int i = 0; i < this.size(); i++) {
             if (this.words[i] == null) {

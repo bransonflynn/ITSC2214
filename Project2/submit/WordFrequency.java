@@ -1,5 +1,7 @@
 package Project2.submit;
 
+import org.junit.Ignore;
+
 /**
  * Custom object to store "words" as string:int key:value pair for use in
  * HashWords
@@ -55,5 +57,15 @@ public class WordFrequency {
         this.count--;
         if (this.count < 0)
             this.count = 0;
+    }
+
+    /**
+     * toString implementation for WordFrequency.
+     * 
+     * @return String representation of WordFrequency.
+     */
+    @Ignore
+    public String toString() {
+        return "WordFrequency{word=" + this.word + ", count=" + this.count + "}";
     }
 }
