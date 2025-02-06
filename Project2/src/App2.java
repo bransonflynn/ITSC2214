@@ -1,5 +1,5 @@
-import Project2.submit.HashWords;
-import Project2.submit.WordFrequency;
+//import Project2.submit.HashWords;
+//import Project2.submit.WordFrequency;
 
 public class App2 {
     public static void main(String[] args) {

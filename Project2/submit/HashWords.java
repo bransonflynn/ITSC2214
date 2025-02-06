@@ -1,7 +1,5 @@
 package Project2.submit;
 
-import org.junit.Ignore;
-
 /**
  * This class implements a hash table.
  * 
@@ -19,15 +17,15 @@ import org.junit.Ignore;
  * @version Feb 04, 2025
  */
 
-// self - this is just an arr of WordFrequency which is a string:int pair, easy
-// self - toLowercase() already internally checks for any chars being lowercase
-// before operating
 public class HashWords {
 
-    // fields
+    /** The array that words are stored in. */
     private WordFrequency[] words;
+    /** Starting size of the array. */
     private int size;
+    /** size_t count of each unique word. */
     private int uniqueWords;
+    /** size_t count of all words and all counts. */
     private int totalWords;
 
     /**
@@ -118,7 +116,7 @@ public class HashWords {
         }
     }
     //
-    // TODO - temp addWord() specifications
+    // temp addWord() specifications
     // - remember to increment uniqueWords and totalWords for relevant steps
     // - the annotations "#)." above are temp and should be deleted when done
     //
