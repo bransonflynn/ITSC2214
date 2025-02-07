@@ -237,7 +237,7 @@ public class Project1 implements ArrayInt {
         }
 
         // config options for random num generation
-        int min = 0;
+        int min = -1000;
         int max = 1000;
         Random rand = new Random();
 

@@ -20,11 +20,6 @@ public class WordFrequencyTest {
     }
 
     @Test
-    public void testOne() {
-        assertEquals(runner.getWord(), "Shmunguss");
-    }
-
-    @Test
     public void testGetWord() {
         assertEquals(runner.getWord(), "Shmunguss");
     }
@@ -32,6 +27,15 @@ public class WordFrequencyTest {
     @Test
     public void testGetCount() {
         assertEquals(runner.getCount(), 1);
+        runner.increment();
+        assertEquals(runner.getCount(), 2);
+    }
+
+    @Test
+    public void testSetCount() {
+        assertEquals(runner.getCount(), 1);
+        runner.setCount(100);
+        assertEquals(runner.getCount(), 100);
     }
 
     @Test
@@ -47,12 +51,12 @@ public class WordFrequencyTest {
         runner.decrement();
         assertEquals(runner.getCount(), 0);
         runner.decrement();
-        assertEquals(runner.getCount(), 0);
+        assertEquals(runner.getCount(), 0); // goes to -1, reset to 0
     }
 
     @Test
     public void testToString() {
-        // static representation for readability
+        // static representation for test readability
         String toStringResult = "WordFrequency{word=Shmunguss, count=1}";
         assertEquals(runner.toString(), toStringResult);
     }

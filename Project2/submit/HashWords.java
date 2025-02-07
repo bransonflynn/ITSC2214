@@ -80,39 +80,33 @@ public class HashWords {
         int hashKey = this.hashKey(w);
         int wordIndex = this.getWordIndex(w); // init'd early since we use it in all cases
 
-        // 2.)
-        if (this.contains(w)) {
+        // 2.) and 3.)
+        if (this.contains(w)) { // the table has this word
             this.words[wordIndex].increment();
             this.totalWords++;
             return;
-        }
-
-        // 3.)
-        // todo this sucks
-        // check if index from hashkey is occupied. linear probe if needed
-        if (this.words[hashKey] == null) {
-            // has space
-            this.words[hashKey] = new WordFrequency(w);
-            this.totalWords++;
-            this.uniqueWords++;
-        } else {
-            // does not have space - rehash table
-            WordFrequency[] wordsNew = new WordFrequency[this.size() * 3];
-            this.uniqueWords = 0;
-            this.totalWords = 0;
-            for (int i = 0; i < this.words.length; i++) {
-                if (this.words[i] == null) {
-                    continue;
-                } else {
-                    // note - so dumb but im leaving it for rn
-                    wordsNew[this.hashKey(this.words[i].getWord())] = this.words[i];
-                    this.totalWords++;
-                    this.uniqueWords++;
+        } else { // the table does not have this word
+            if (this.words[hashKey] == null) { // there is space, add the word
+                this.words[hashKey] = new WordFrequency(w);
+                this.uniqueWords++;
+                this.totalWords++;
+            } else { // there is not space, resize + rehash table
+                // 4.)
+                WordFrequency[] wordsNew = new WordFrequency[this.size() * 3];
+                this.size *= 3;
+                for (int i = 0; i < this.words.length; i++) {
+                    if (this.words[i] == null) {
+                        continue;
+                    } else {
+                        // todo might need linear probing setup here
+                        int reHashKey = hashKey(this.words[i].getWord());
+                        wordsNew[reHashKey] = new WordFrequency(this.words[i].getWord());
+                        wordsNew[reHashKey].setCount(this.words[i].getCount());
+                        this.totalWords += this.words[i].getCount();
+                        this.uniqueWords++; // shouldn't need to check since words is already organized
+                    }
                 }
             }
-            wordsNew[hashKey] = new WordFrequency(w);
-            this.totalWords++;
-            this.uniqueWords++;
         }
     }
     //

@@ -44,6 +44,15 @@ public class WordFrequency {
     }
 
     /**
+     * Setter for count.
+     * 
+     * @param n The new count to set.
+     */
+    public void setCount(int n) {
+        this.count = n;
+    }
+
+    /**
      * Increases the count of this word by 1.
      */
     public void increment() {
