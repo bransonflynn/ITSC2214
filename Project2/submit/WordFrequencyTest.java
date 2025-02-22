@@ -12,27 +12,52 @@ import org.junit.Test;
  */
 
 public class WordFrequencyTest {
-    private WordFrequency wordFreq;
+    private WordFrequency runner;
 
     @Before
     public void setup() {
-        wordFreq = new WordFrequency("Shmungus");
+        runner = new WordFrequency("Shmunguss");
     }
 
     @Test
-    public void testOne() {
-        assertEquals(wordFreq.getWord(), "Shmungus");
+    public void testGetWord() {
+        assertEquals(runner.getWord(), "Shmunguss");
     }
 
     @Test
-    public void testTwo() {
-        assertEquals(wordFreq.getCount(), 1);
+    public void testGetCount() {
+        assertEquals(runner.getCount(), 1);
+        runner.increment();
+        assertEquals(runner.getCount(), 2);
     }
 
     @Test
-    public void testThree() {
-        assertEquals(wordFreq.getCount(), 1);
-        wordFreq.increment();
-        assertEquals(wordFreq.getCount(), 2);
+    public void testSetCount() {
+        assertEquals(runner.getCount(), 1);
+        runner.setCount(100);
+        assertEquals(runner.getCount(), 100);
+    }
+
+    @Test
+    public void testIncrement() {
+        assertEquals(runner.getCount(), 1);
+        runner.increment();
+        assertEquals(runner.getCount(), 2);
+    }
+
+    @Test
+    public void testDecrement() {
+        assertEquals(runner.getCount(), 1);
+        runner.decrement();
+        assertEquals(runner.getCount(), 0);
+        runner.decrement();
+        assertEquals(runner.getCount(), 0); // goes to -1, reset to 0
+    }
+
+    @Test
+    public void testToString() {
+        // static representation for test readability
+        String toStringResult = "WordFrequency{word=Shmunguss, count=1}";
+        assertEquals(runner.toString(), toStringResult);
     }
 }

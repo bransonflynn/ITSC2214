@@ -1,5 +1,7 @@
 package Project2.submit;
 
+import org.junit.Ignore;
+
 /**
  * Custom object to store "words" as string:int key:value pair for use in
  * HashWords
@@ -39,6 +41,15 @@ public class WordFrequency implements Comparable<WordFrequency> {
      */
     public int getCount() {
         return this.count;
+    }
+
+    /**
+     * Setter for count.
+     * 
+     * @param n The new count to set.
+     */
+    public void setCount(int n) {
+        this.count = n;
     }
 
     /**
