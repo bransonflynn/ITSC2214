@@ -8,7 +8,7 @@ package Project2.submit;
  * @version Feb 04, 2025
  */
 
-public class WordFrequency {
+public class WordFrequency implements Comparable<WordFrequency> {
 
     private String word;
     private int count;
@@ -55,5 +55,27 @@ public class WordFrequency {
         this.count--;
         if (this.count < 0)
             this.count = 0;
+    }
+
+    /**
+     * Comparable implementation.
+     * 
+     * @param other The other object to compare against.
+     * @return Value of member word String comparison value.
+     *         Falls back to member count comparison value if word comparison is equal.
+     */
+    public int compareTo(WordFrequency other) {
+        int wordComp = this.getWord().compareTo(other.getWord());
+        if (wordComp != 0) {
+            return wordComp;
+        }
+
+        if (this.getCount() == other.getCount()) {
+            return 0;
+        } else if (this.getCount() < other.getCount()) {
+            return -1;
+        } else { // this.getCount() > other.getCount()
+            return 1;
+        }
     }
 }
